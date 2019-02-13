@@ -35,6 +35,11 @@
 
     _nfcSession = [[NFCNDEFReaderSession new]initWithDelegate:self queue:nil invalidateAfterFirstRead:TRUE];
     ndefStartSessionCallbackId = [command.callbackId copy];
+    NSString * nfcDescription = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"NFCReaderUsageDescription"];
+    if ([nfcDescription isEqualToString:@"Read NFC Tags"]) {
+        nfcDescription = @" ";
+    };
+    _nfcSession.alertMessage = nfcDescription;
     [_nfcSession beginSession];
 }
 
